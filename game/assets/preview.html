@@ -1,0 +1,37 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Asset Preview</title>
+<style>
+  body { background: #1a1d26; color: #cfd3e0; font: 13px system-ui; margin: 16px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  figure { margin: 0; text-align: center; }
+  .stage { position: relative; width: 240px; height: 360px; background:
+    repeating-conic-gradient(#232734 0 25%, #2b3040 0 50%) 0 0/24px 24px; border-radius: 6px; }
+  .stage img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  h2 { font-weight: 600; font-size: 14px; color: #8fa0c9; }
+</style>
+<h2>Bases × test hair (fit check: chest line + head seat)</h2>
+<div class="row" id="bases"></div>
+<h2>All hairs on deep_current</h2>
+<div class="row" id="hairs"></div>
+<h2>Garment fit check (same wrap on all 4 bases)</h2>
+<div class="row" id="fit"></div>
+<script>
+const BASES = ["oceanic","pearlescent","deep_current","reef"];
+const HAIRS = ["fringe","shag","split","spiral","shortwave","epic","longwave","bob","spring","summer","autumn","winter"];
+const stage = (layers, label) => {
+  const f = document.createElement("figure");
+  const s = document.createElement("div"); s.className = "stage";
+  for (const src of layers) {
+    const i = new Image(); i.src = src; i.onerror = () => i.remove(); s.appendChild(i);
+  }
+  const c = document.createElement("figcaption"); c.textContent = label;
+  f.append(s, c); return f;
+};
+for (const b of BASES)
+  document.getElementById("bases").append(stage([`bases/${b}.png`, "hair/hair_fringe.png"], b));
+for (const h of HAIRS)
+  document.getElementById("hairs").append(stage(["bases/deep_current.png", `hair/hair_${h}.png`], h));
+for (const b of BASES)
+  document.getElementById("fit").append(stage([`bases/${b}.png`, "items/_testwrap.png"], b + " + wrap"));
+</script>

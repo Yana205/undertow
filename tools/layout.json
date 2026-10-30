@@ -1,0 +1,19 @@
+{
+  "base_oceanic":      { "scale": 0.90, "x": 298, "y": 120, "dest": "game/assets/bases/oceanic.png" },
+  "base_pearlescent":  { "scale": 0.90, "x": 285, "y": 120, "dest": "game/assets/bases/pearlescent.png" },
+  "base_deep_current": { "scale": 0.90, "x": 308, "y": 120, "dest": "game/assets/bases/deep_current.png" },
+  "base_reef":         { "scale": 0.90, "x": 375, "y": 120, "dest": "game/assets/bases/reef.png" },
+
+  "hair_fringe":    { "scale": 0.33, "x": 513, "y": 125, "dest": "game/assets/hair/hair_fringe.png",    "thumb": "game/assets/thumbs/hair_fringe.webp" },
+  "hair_shag":      { "scale": 0.33, "x": 515, "y": 118, "dest": "game/assets/hair/hair_shag.png",      "thumb": "game/assets/thumbs/hair_shag.webp" },
+  "hair_split":     { "scale": 0.33, "x": 501, "y": 122, "dest": "game/assets/hair/hair_split.png",     "thumb": "game/assets/thumbs/hair_split.webp" },
+  "hair_spiral":    { "scale": 0.33, "x": 495, "y": 118, "dest": "game/assets/hair/hair_spiral.png",    "thumb": "game/assets/thumbs/hair_spiral.webp" },
+  "hair_shortwave": { "scale": 0.33, "x": 528, "y": 125, "dest": "game/assets/hair/hair_shortwave.png", "thumb": "game/assets/thumbs/hair_shortwave.webp" },
+  "hair_epic":      { "scale": 0.33, "x": 461, "y": 118, "dest": "game/assets/hair/hair_epic.png",      "thumb": "game/assets/thumbs/hair_epic.webp" },
+  "hair_longwave":  { "scale": 0.33, "x": 461, "y": 120, "dest": "game/assets/hair/hair_longwave.png",  "thumb": "game/assets/thumbs/hair_longwave.webp" },
+  "hair_bob":       { "scale": 0.33, "x": 518, "y": 122, "dest": "game/assets/hair/hair_bob.png",       "thumb": "game/assets/thumbs/hair_bob.webp" },
+  "hair_spring":    { "scale": 0.33, "x": 513, "y": 125, "dest": "game/assets/hair/hair_spring.png",    "thumb": "game/assets/thumbs/hair_spring.webp" },
+  "hair_summer":    { "scale": 0.33, "x": 475, "y": 118, "dest": "game/assets/hair/hair_summer.png",    "thumb": "game/assets/thumbs/hair_summer.webp" },
+  "hair_autumn":    { "scale": 0.33, "x": 489, "y": 120, "dest": "game/assets/hair/hair_autumn.png",    "thumb": "game/assets/thumbs/hair_autumn.webp" },
+  "hair_winter":    { "scale": 0.33, "x": 496, "y": 118, "dest": "game/assets/hair/hair_winter.png",    "thumb": "game/assets/thumbs/hair_winter.webp" }
+}

@@ -1,0 +1,194 @@
+:root {
+  --bg: #0d1017;
+  --panel: #161a26;
+  --panel-2: #1e2333;
+  --ink: #cfd6e8;
+  --dim: #7d87a3;
+  --sel: #8fb6d9;
+  --tide: #5aa7c9;
+  --masque: #c98fb6;
+  --memory: #d9b86a;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.4 Georgia, "Times New Roman", serif;
+  overflow: hidden;
+}
+
+#app {
+  display: flex;
+  height: 100vh;
+  gap: 10px;
+  padding: 10px;
+  justify-content: center;
+}
+
+/* ---- stage ---- */
+#stage-wrap {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  max-width: 62vw;
+}
+#stage {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(#0e1b2b 0%, #0a2033 34%, #06141f 35%, #041019 100%);
+}
+#stage .layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+#ashore {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  padding: 10px 26px;
+  font: inherit;
+  font-size: 17px;
+  letter-spacing: 0.12em;
+  color: #0d1017;
+  background: linear-gradient(#e8d9a8, #c9b270);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+#ashore:hover { filter: brightness(1.08); }
+
+/* ---- wardrobe ---- */
+#wardrobe {
+  width: min(320px, 34vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+}
+#slot-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+#slot-tabs button {
+  flex: 1;
+  padding: 7px 2px;
+  font: inherit;
+  font-size: 13px;
+  text-transform: capitalize;
+  color: var(--dim);
+  background: var(--panel-2);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#slot-tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--sel); }
+
+#thumbs {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  align-content: start;
+}
+.thumb {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--panel-2);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 4px;
+}
+.thumb img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.thumb.equipped { border-color: var(--sel); box-shadow: 0 0 10px #8fb6d955; }
+.thumb .vibe {
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  font-size: 13px;
+  filter: drop-shadow(0 1px 2px #000);
+}
+.thumb.hero::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  border: 2px solid var(--memory);
+  animation: glint 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes glint {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.9; }
+}
+
+#tally {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  padding: 6px 0 2px;
+  font-size: 15px;
+  color: var(--dim);
+}
+#tally .lead { color: var(--ink); }
+
+/* ---- overlay (title / tail select / ending) ---- */
+#overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: #0d1017ee;
+  text-align: center;
+  padding: 24px;
+}
+#overlay[hidden] { display: none; }
+#overlay h1 { font-size: 44px; font-weight: 500; letter-spacing: 0.2em; margin: 0; }
+#overlay p { max-width: 52ch; color: var(--dim); margin: 0; }
+#overlay .tails { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+#overlay .tails button {
+  width: 130px;
+  height: 200px;
+  background: var(--panel-2) center/cover no-repeat;
+  border: 2px solid #313950;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  font: inherit;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+  text-transform: capitalize;
+  text-shadow: 0 1px 3px #000;
+}
+#overlay .tails button:hover { border-color: var(--sel); }
+#overlay button.primary {
+  padding: 10px 30px;
+  font: inherit;
+  font-size: 16px;
+  background: linear-gradient(#e8d9a8, #c9b270);
+  color: #0d1017;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  #app { flex-direction: column; align-items: center; overflow-y: auto; }
+  #stage-wrap { max-width: 100%; width: 100%; height: auto; }
+  #wardrobe { width: 100%; }
+}
