@@ -26,7 +26,7 @@ for _ in range(60):
     b = random.randint(90, 200)
     d.point((x, y), fill=(b, b, min(255, b + 30)))
 # moon
-mx, my, mr = 230, 150, 64
+mx, my, mr = 985, 150, 64
 for r, a in ((mr * 2.4, 18), (mr * 1.6, 30), (mr, 255)):
     col = (226, 232, 240) if a == 255 else (60, 70, 95)
     d.ellipse([mx - r, my - r, mx + r, my + r], fill=col)
@@ -35,19 +35,19 @@ for r, a in ((mr * 2.4, 18), (mr * 1.6, 30), (mr, 255)):
 sand_top = int(WATER_Y * 0.52)
 d.polygon([(0, sand_top + 60), (W, sand_top - 40), (W, WATER_Y), (0, WATER_Y)], fill=(44, 38, 44))
 # bonfire glow (right side, where he stands)
-fx, fy = 830, WATER_Y - 95
+fx, fy = 225, WATER_Y - 95
 for r, col in ((190, (60, 36, 26)), (120, (105, 58, 30)), (64, (178, 102, 40)), (30, (255, 170, 70))):
     d.ellipse([fx - r, fy - r * 0.62, fx + r, fy + r * 0.62], fill=col)
 d.polygon([(fx - 14, fy + 12), (fx - 4, fy - 34), (fx + 3, fy - 12), (fx + 10, fy - 40), (fx + 16, fy + 12)], fill=(255, 208, 110))
 # party silhouettes
-for px in (640, 700, 1000, 1060, 1120):
+for px in (82, 140, 330, 392, 452):
     ph = random.randint(55, 75)
     d.ellipse([px - 11, fy - ph - 16, px + 11, fy - ph + 10], fill=(16, 14, 20))
     d.polygon([(px - 13, fy - ph + 8), (px + 13, fy - ph + 8), (px + 9, fy + 14), (px - 9, fy + 14)], fill=(16, 14, 20))
 # strung lights
 for i in range(26):
     t = i / 25
-    lx = 600 + t * 560
+    lx = 60 + t * 470
     ly = fy - 150 + math.sin(t * math.pi) * -34 + t * 8
     d.ellipse([lx - 3, ly - 3, lx + 3, ly + 3], fill=(255, 190, 100))
 

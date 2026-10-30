@@ -61,12 +61,17 @@ function renderTally() {
   const t = tally(engine.equippedVibes(), biasVibe);
   const el = $("#tally");
   el.replaceChildren();
+  // The displayed lead comes from the player's own items only —
+  // the tail's hidden vote must never leak into the UI.
+  const own = engine.equippedVibes();
+  const counts = { tide: 0, masque: 0, memory: 0 };
+  for (const v of own) counts[v]++;
+  const max = Math.max(counts.tide, counts.masque, counts.memory);
+  const lead = max > 0 ? [...own].reverse().find((v) => counts[v] === max) : null;
   for (const vibe of ["tide", "masque", "memory"]) {
     const s = document.createElement("span");
-    // Shown counts are the player's own items — the tail's vote stays hidden.
-    const own = engine.equippedVibes().filter((v) => v === vibe).length;
-    s.textContent = `${VIBE_ICONS[vibe]} ${own}`;
-    if (t.dominant === vibe) s.className = "lead";
+    s.textContent = `${VIBE_ICONS[vibe]} ${counts[vibe]}`;
+    if (lead === vibe) s.className = "lead";
     el.appendChild(s);
   }
   return t;

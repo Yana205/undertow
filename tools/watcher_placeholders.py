@@ -12,7 +12,7 @@ def figure(name, lean=0, head_tilt=0, lantern_dy=0):
     im = Image.new("RGBA", (1200, 1800), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     # he stands at the bonfire's edge on the far beach (bg: fire at x≈830, ground y≈560)
-    cx, feet = 745, 560
+    cx, feet = 318, 560
     top = feet - 150
     # lantern glow
     lx, ly = cx - 40 + lean, feet - 66 + lantern_dy

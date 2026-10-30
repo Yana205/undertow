@@ -23,7 +23,7 @@ export function startAmbientLife(stageWrap) {
   }
   for (let i = 0; i < 5; i++) {
     mk("spark", {
-      left: `${64 + Math.random() * 16}%`,
+      left: `${12 + Math.random() * 14}%`,
       top: `${WATERLINE * 100 - 6 - Math.random() * 6}%`,
       animationDuration: `${2.2 + Math.random() * 2.4}s`,
       animationDelay: `${Math.random() * 3}s`,
@@ -35,12 +35,18 @@ export function stopAmbientLife() {
   document.querySelectorAll(".bubble, .spark").forEach((n) => n.remove());
 }
 
-// Pop the layer an item just landed on.
+// Pop the layer an item just landed on, then hand the layer back to its
+// idle animation (hair sway, tail drift) once the pop finishes.
 export function settle(layerImg) {
   if (!layerImg) return;
   layerImg.classList.remove("pop");
   void layerImg.offsetWidth;
   layerImg.classList.add("pop");
+  layerImg.addEventListener(
+    "animationend",
+    (ev) => { if (ev.animationName === "equip-pop") layerImg.classList.remove("pop"); },
+    { once: true }
+  );
 }
 
 // Per-ending stage grades, layered on top of the tail's own grade.
