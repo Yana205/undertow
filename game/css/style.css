@@ -50,6 +50,88 @@ body {
   pointer-events: none;
 }
 
+/* ---- juice: equip settle ---- */
+.layer.pop { animation: equip-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes equip-pop {
+  0% { transform: translateY(-14px) scale(1.03); opacity: 0.1; }
+  60% { transform: translateY(2px) scale(0.998); opacity: 1; }
+  100% { transform: none; }
+}
+
+/* ---- juice: idle life ---- */
+.layer-hair_front { animation: hair-sway 5.2s ease-in-out infinite; transform-origin: 50% 9%; }
+.layer-hair_back { animation: hair-sway 6.1s ease-in-out infinite reverse; transform-origin: 50% 9%; }
+@keyframes hair-sway {
+  0%, 100% { transform: rotate(0.001deg); }
+  50% { transform: rotate(0.55deg) translateY(2px); }
+}
+.layer-base { animation: tail-drift 7s ease-in-out infinite; transform-origin: 50% 30%; }
+@keyframes tail-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px) rotate(0.12deg); }
+}
+
+/* bubbles */
+.bubble {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  border: 1px solid #9fc5de66;
+  background: radial-gradient(circle at 35% 30%, #cfe6f544, #4a7a9b22);
+  animation: bubble-rise linear infinite;
+  pointer-events: none;
+}
+@keyframes bubble-rise {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: 0.8; }
+  100% { transform: translateY(-62vh) translateX(10px); opacity: 0; }
+}
+
+/* moon caustics */
+#stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  top: 35%;
+  background:
+    radial-gradient(ellipse 60% 18% at 30% 20%, #bfe3ff14, transparent),
+    radial-gradient(ellipse 50% 14% at 70% 55%, #bfe3ff10, transparent),
+    radial-gradient(ellipse 70% 20% at 50% 85%, #bfe3ff0c, transparent);
+  animation: caustics 9s ease-in-out infinite alternate;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+@keyframes caustics {
+  from { transform: translateX(-12px); opacity: 0.8; }
+  to { transform: translateX(12px); opacity: 1; }
+}
+
+/* fire sparks above the waterline */
+.spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffbe5a;
+  filter: blur(0.4px);
+  animation: spark-drift ease-out infinite;
+  pointer-events: none;
+}
+@keyframes spark-drift {
+  0% { transform: translate(0, 0); opacity: 0; }
+  15% { opacity: 0.9; }
+  100% { transform: translate(14px, -46px); opacity: 0; }
+}
+
+/* ---- juice: the Walk Ashore reveal ---- */
+#stage-wrap.reveal #stage,
+#stage-wrap.reveal #watcher-wrap {
+  transition: transform 1.6s cubic-bezier(0.5, 0, 0.2, 1);
+  transform: scale(1.7) translateY(21%);
+}
+#stage-wrap.reveal #ashore { opacity: 0; pointer-events: none; }
+#ashore { transition: opacity 0.4s ease; }
+
 /* ---- watcher (the man on the shore) ---- */
 #watcher-wrap {
   position: absolute;

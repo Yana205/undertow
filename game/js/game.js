@@ -4,6 +4,8 @@ import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js";
 import * as engine from "./engine.js";
 import * as watcher from "./watcher.js";
 import { playChime, playAmbient, playStinger } from "./audio.js";
+import { startAmbientLife, settle, ENDING_GRADE, ENDING_POSE } from "./juice.js";
+import { SLOT_LAYER } from "./data.js";
 import { resolveBias, tally, resolveEnding } from "./vibes.js";
 
 const $ = (sel) => document.querySelector(sel);
@@ -123,6 +125,7 @@ function startDressing(tail) {
   buildTabs();
   buildThumbs();
   renderTally();
+  startAmbientLife($("#stage-wrap"));
 }
 
 function walkAshore() {
@@ -130,8 +133,12 @@ function walkAshore() {
   state = "ASHORE";
   const t = tally(engine.equippedVibes(), biasVibe);
   const key = resolveEnding(t.dominant, engine.hasHero());
-  // brief hold before the ending card (the push-in lands here in Task 8)
-  setTimeout(() => showEnding(key, t.dominant), 900);
+  // the reveal: push in to the shore, grade the night, let him turn
+  $("#wardrobe").hidden = true;
+  $("#stage-wrap").classList.add("reveal");
+  $("#stage").style.filter = `${currentTail.palette.grade} ${ENDING_GRADE[key]}`;
+  watcher.setTier(ENDING_POSE[key]);
+  setTimeout(() => showEnding(key, t.dominant), 1900);
 }
 
 function showEnding(key, dominant) {
@@ -153,6 +160,7 @@ function resetGame() {
   $("#wardrobe").hidden = true;
   $("#ashore").hidden = true;
   $("#stage").style.filter = "";
+  $("#stage-wrap").classList.remove("reveal");
   renderTally();
   showTailSelect();
 }
@@ -160,11 +168,14 @@ function resetGame() {
 // ---- boot ----
 engine.initStage($("#stage"));
 watcher.initWatcher($("#watcher-wrap"));
-engine.onEquip((item) => {
+engine.onEquip((item, slot) => {
   const t = renderTally();
-  if (item?.vibe) {
-    watcher.react(item.vibe);
-    playChime(item.vibe);
+  if (item) {
+    settle(document.querySelector(`.layer-${SLOT_LAYER[slot]}`));
+    if (item.vibe) {
+      watcher.react(item.vibe);
+      playChime(item.vibe);
+    }
   }
   watcher.setTier(t.dominant);
 });
