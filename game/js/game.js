@@ -1,13 +1,15 @@
-// Game flow. Task 3 scope: boot straight into DRESSING with a default tail.
-// Task 4 adds TITLE → TAIL_SELECT → ASHORE → ENDING around it.
+// Game flow: TITLE → TAIL_SELECT → DRESSING → ASHORE → ENDING.
 
-import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS } from "./data.js";
+import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js";
 import * as engine from "./engine.js";
-import { resolveBias, tally } from "./vibes.js";
+import { resolveBias, tally, resolveEnding } from "./vibes.js";
 
 const $ = (sel) => document.querySelector(sel);
+const overlay = $("#overlay");
 
+let state = "TITLE";
 let biasVibe = "memory";
+let currentTail = null;
 let currentSlot = "hair";
 
 // ---- wardrobe UI ----
@@ -42,6 +44,7 @@ function buildThumbs() {
     v.textContent = VIBE_ICONS[item.vibe] ?? "";
     d.append(img, v);
     d.addEventListener("click", () => {
+      if (state !== "DRESSING") return;
       if (engine.getEquipped(item.slot) === item) engine.unequip(item.slot);
       else engine.equip(item);
       buildThumbs();
@@ -56,7 +59,7 @@ function renderTally() {
   el.replaceChildren();
   for (const vibe of ["tide", "masque", "memory"]) {
     const s = document.createElement("span");
-    // Shown counts are the player's own items only — the tail's vote stays hidden.
+    // Shown counts are the player's own items — the tail's vote stays hidden.
     const own = engine.equippedVibes().filter((v) => v === vibe).length;
     s.textContent = `${VIBE_ICONS[vibe]} ${own}`;
     if (t.dominant === vibe) s.className = "lead";
@@ -65,23 +68,105 @@ function renderTally() {
   return t;
 }
 
-// ---- boot (Task 3: straight into dressing) ----
+// ---- overlay screens ----
+function showOverlay(...children) {
+  overlay.replaceChildren(...children);
+  overlay.hidden = false;
+}
+
+function el(tag, props = {}, text = "") {
+  const n = document.createElement(tag);
+  Object.assign(n, props);
+  if (text) n.textContent = text;
+  return n;
+}
+
+function showTitle() {
+  state = "TITLE";
+  const h1 = el("h1", {}, "UNDERTOW");
+  const p = el("p", {}, "Once a year, on Halloween night, the sea lets her walk ashore. " +
+    "Tonight there is a bonfire on the beach — and he is there. Dress for the party. " +
+    "What she wears writes what the night becomes.");
+  const btn = el("button", { className: "primary" }, "Begin");
+  btn.addEventListener("click", showTailSelect, { once: true });
+  showOverlay(h1, p, btn);
+}
+
+function showTailSelect() {
+  state = "TAIL_SELECT";
+  const h = el("h1", {}, "The Tide You Rise On");
+  const p = el("p", {}, "Choose the sea that made her this year.");
+  const row = el("div", { className: "tails" });
+  for (const tail of TAILS) {
+    const b = el("button", {}, tail.id.replace("_", " "));
+    b.style.backgroundImage = `url(${tail.src})`;
+    b.addEventListener("click", () => startDressing(tail));
+    row.appendChild(b);
+  }
+  showOverlay(h, p, row);
+}
+
 function startDressing(tail) {
+  state = "DRESSING";
+  currentTail = tail;
   biasVibe = resolveBias(tail.id);
+  engine.resetEquips();
   engine.setBase(tail);
+  $("#stage").style.filter = tail.palette.grade;
+  overlay.hidden = true;
   $("#wardrobe").hidden = false;
   $("#ashore").hidden = false;
+  currentSlot = "hair";
   buildTabs();
   buildThumbs();
   renderTally();
 }
 
+function walkAshore() {
+  if (state !== "DRESSING") return;
+  state = "ASHORE";
+  const t = tally(engine.equippedVibes(), biasVibe);
+  const key = resolveEnding(t.dominant, engine.hasHero());
+  // brief hold before the ending card (the push-in lands here in Task 8)
+  setTimeout(() => showEnding(key, t.dominant), 900);
+}
+
+function showEnding(key, dominant) {
+  state = "ENDING";
+  const e = ENDINGS[key];
+  const h = el("h1", {}, e.title);
+  const parts = [h];
+  for (const line of e.lines) parts.push(el("p", {}, line));
+  if (key === "found") parts.push(el("p", {}, "✦ the secret ending ✦"));
+  const again = el("button", { className: "primary" }, "Another Halloween");
+  again.addEventListener("click", resetGame, { once: true });
+  parts.push(again);
+  showOverlay(...parts);
+}
+
+function resetGame() {
+  engine.resetEquips();
+  $("#wardrobe").hidden = true;
+  $("#ashore").hidden = true;
+  $("#stage").style.filter = "";
+  renderTally();
+  showTailSelect();
+}
+
+// ---- boot ----
 engine.initStage($("#stage"));
 engine.onEquip(() => renderTally());
-engine.preloadAll().then(() => {
-  $("#overlay").hidden = true;
-  startDressing(TAILS[2]); // deep_current while flow is unbuilt
+$("#ashore").addEventListener("click", walkAshore);
+document.addEventListener("keydown", (ev) => {
+  if (state === "ENDING" && (ev.key === "r" || ev.key === "R")) resetGame();
 });
+showTitle();
+engine.preloadAll();
 
 // expose for manual browser testing
-window.__state = { engine, get bias() { return biasVibe; } };
+window.__state = {
+  engine,
+  get bias() { return biasVibe; },
+  get state() { return state; },
+  get tail() { return currentTail?.id; },
+};
