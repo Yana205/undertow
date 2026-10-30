@@ -2,6 +2,7 @@
 
 import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js";
 import * as engine from "./engine.js";
+import * as watcher from "./watcher.js";
 import { resolveBias, tally, resolveEnding } from "./vibes.js";
 
 const $ = (sel) => document.querySelector(sel);
@@ -111,6 +112,7 @@ function startDressing(tail) {
   currentTail = tail;
   biasVibe = resolveBias(tail.id);
   engine.resetEquips();
+  watcher.resetWatcher();
   engine.setBase(tail);
   $("#stage").style.filter = tail.palette.grade;
   overlay.hidden = true;
@@ -155,7 +157,12 @@ function resetGame() {
 
 // ---- boot ----
 engine.initStage($("#stage"));
-engine.onEquip(() => renderTally());
+watcher.initWatcher($("#watcher-wrap"));
+engine.onEquip((item) => {
+  const t = renderTally();
+  if (item?.vibe) watcher.react(item.vibe);
+  watcher.setTier(t.dominant);
+});
 $("#ashore").addEventListener("click", walkAshore);
 document.addEventListener("keydown", (ev) => {
   if (state === "ENDING" && (ev.key === "r" || ev.key === "R")) resetGame();
