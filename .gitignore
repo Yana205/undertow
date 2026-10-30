@@ -3,3 +3,4 @@ build/
 assets_raw/
 .superpowers/
 .DS_Store
+.claude/
