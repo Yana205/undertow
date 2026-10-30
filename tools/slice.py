@@ -82,14 +82,23 @@ def cut(only=None):
                 continue
             crop = src.crop((c["x"], c["y"], c["x"] + c["w"], c["y"] + c["h"]))
             out = strip(crop)
+            if c.get("floor"):  # zero pixels darker than the sheet background
+                px = out.load()
+                fl = c["floor"]
+                for yy in range(out.height):
+                    for xx in range(out.width):
+                        r, g, b, a = px[xx, yy]
+                        if a and max(r, g, b) < fl:
+                            px[xx, yy] = (r, g, b, 0)
             if c.get("clean", True):
                 out = keep_main_component(out)
             for ex0, ey0, ex1, ey1 in c.get("erase", []):
                 blank = Image.new("RGBA", (ex1 - ex0, ey1 - ey0), (0, 0, 0, 0))
                 out.paste(blank, (ex0, ey0))
-            bbox = out.getbbox()
-            if bbox:
-                out = out.crop(bbox)
+            if c.get("trim", True):
+                bbox = out.getbbox()
+                if bbox:
+                    out = out.crop(bbox)
             out.save(RAW / f"{c['id']}.png")
             print(f"cut {c['id']}: {out.size[0]}x{out.size[1]}")
 

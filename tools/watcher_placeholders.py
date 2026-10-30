@@ -11,22 +11,23 @@ OUT.mkdir(parents=True, exist_ok=True)
 def figure(name, lean=0, head_tilt=0, lantern_dy=0):
     im = Image.new("RGBA", (1200, 1800), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
-    cx, feet = 900, 600
-    top = feet - 240
+    # he stands at the bonfire's edge on the far beach (bg: fire at x≈830, ground y≈560)
+    cx, feet = 745, 560
+    top = feet - 150
     # lantern glow
-    lx, ly = cx - 62 + lean * 2, feet - 110 + lantern_dy
-    for r, a in ((46, 36), (30, 70), (16, 160)):
+    lx, ly = cx - 40 + lean, feet - 66 + lantern_dy
+    for r, a in ((30, 36), (19, 70), (10, 160)):
         d.ellipse([lx - r, ly - r, lx + r, ly + r], fill=(255, 190, 90, a))
     # body (leaning silhouette)
-    body = [(cx - 26 + lean, top + 58), (cx + 26 + lean, top + 58),
-            (cx + 20, feet), (cx - 20, feet)]
+    body = [(cx - 17 + lean, top + 38), (cx + 17 + lean, top + 38),
+            (cx + 13, feet), (cx - 13, feet)]
     d.polygon(body, fill=(24, 22, 30, 255))
     # head
     hx = cx + lean + head_tilt
-    d.ellipse([hx - 20, top, hx + 20, top + 44], fill=(24, 22, 30, 255))
+    d.ellipse([hx - 13, top, hx + 13, top + 29], fill=(24, 22, 30, 255))
     # lantern arm + lantern
-    d.line([cx - 16 + lean, top + 90, lx, ly - 18], fill=(24, 22, 30, 255), width=10)
-    d.rectangle([lx - 9, ly - 18, lx + 9, ly + 8], fill=(40, 34, 30, 255), outline=(255, 190, 90, 220), width=2)
+    d.line([cx - 11 + lean, top + 60, lx, ly - 12], fill=(24, 22, 30, 255), width=7)
+    d.rectangle([lx - 6, ly - 12, lx + 6, ly + 5], fill=(40, 34, 30, 255), outline=(255, 190, 90, 220), width=2)
     im.save(OUT / f"{name}.png")
     print(name)
 

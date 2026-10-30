@@ -167,6 +167,7 @@ function resetGame() {
 
 // ---- boot ----
 engine.initStage($("#stage"));
+engine.setBackground("assets/bg/shore.png");
 watcher.initWatcher($("#watcher-wrap"));
 engine.onEquip((item, slot) => {
   const t = renderTally();

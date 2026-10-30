@@ -32,7 +32,8 @@ export const ITEMS = [
   // Placeholder wearables until the Gemini batches land (Task 7 swaps srcs)
   { id: "top_kelp",   slot: "top",  vibe: "tide",   src: "assets/items/top_kelp.png",   thumb: "assets/thumbs/top_kelp.webp" },
   { id: "top_party",  slot: "top",  vibe: "masque", src: "assets/items/top_party.png",  thumb: "assets/thumbs/top_party.webp" },
-  { id: "top_scarf",  slot: "top",  vibe: "memory", src: "assets/items/top_scarf.png",  thumb: "assets/thumbs/top_scarf.webp" },
+  { id: "top_sweater", slot: "top", vibe: "memory", src: "assets/items/top_sweater.png", thumb: "assets/thumbs/top_sweater.webp" }, // his old sweater
+
   { id: "neck_fang",  slot: "neck", vibe: "tide",   src: "assets/items/neck_fang.png",  thumb: "assets/thumbs/neck_fang.webp" },
   { id: "neck_beads", slot: "neck", vibe: "masque", src: "assets/items/neck_beads.png", thumb: "assets/thumbs/neck_beads.webp" },
   { id: "locket",     slot: "neck", vibe: "memory", src: "assets/items/locket.png",     thumb: "assets/thumbs/locket.webp", hero: true },

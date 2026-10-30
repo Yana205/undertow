@@ -3,39 +3,195 @@
     {
       "path": "/Users/yanai/Downloads/mermaid assets/Gemini_Generated_Image_2fxmfv2fxmfv2fxm.jpeg",
       "cuts": [
-        { "id": "base_oceanic",      "x": 24,   "y": 20,  "w": 672, "h": 1772 },
-        { "id": "base_pearlescent",  "x": 640,  "y": 20,  "w": 700, "h": 1772,
-          "erase": [[640, 20, 700, 560], [600, 900, 700, 1480], [0, 1500, 100, 1772], [0, 950, 55, 1250]] },
-        { "id": "base_deep_current", "x": 1300, "y": 20,  "w": 640, "h": 1772,
-          "erase": [[0, 780, 130, 1030]] },
-        { "id": "base_reef",         "x": 1830, "y": 20,  "w": 570, "h": 1772 }
+        {
+          "id": "base_oceanic",
+          "x": 24,
+          "y": 20,
+          "w": 672,
+          "h": 1772,
+          "floor": 30,
+          "trim": false
+        },
+        {
+          "id": "base_pearlescent",
+          "x": 640,
+          "y": 20,
+          "w": 700,
+          "h": 1772,
+          "erase": [
+            [
+              640,
+              20,
+              700,
+              560
+            ],
+            [
+              600,
+              900,
+              700,
+              1480
+            ],
+            [
+              0,
+              1500,
+              100,
+              1772
+            ],
+            [
+              0,
+              950,
+              55,
+              1250
+            ]
+          ],
+          "floor": 52,
+          "trim": false
+        },
+        {
+          "id": "base_deep_current",
+          "x": 1300,
+          "y": 20,
+          "w": 640,
+          "h": 1772,
+          "erase": [
+            [
+              0,
+              780,
+              130,
+              1030
+            ]
+          ],
+          "floor": 30,
+          "trim": false
+        },
+        {
+          "id": "base_reef",
+          "x": 1830,
+          "y": 20,
+          "w": 570,
+          "h": 1772,
+          "floor": 30,
+          "trim": false
+        }
       ]
     },
     {
       "path": "/Users/yanai/Downloads/mermaid assets/Gemini_Generated_Image_q4jfy3q4jfy3q4jf.jpeg",
       "cuts": [
-        { "id": "hair_fringe", "x": 72,   "y": 240, "w": 528, "h": 1552 },
-        { "id": "hair_shag",   "x": 636,  "y": 240, "w": 516, "h": 1552 },
-        { "id": "hair_split",  "x": 1140, "y": 240, "w": 600, "h": 1552 },
-        { "id": "hair_spiral", "x": 1704, "y": 240, "w": 636, "h": 1552 }
+        {
+          "id": "hair_fringe",
+          "x": 72,
+          "y": 240,
+          "w": 528,
+          "h": 1552
+        },
+        {
+          "id": "hair_shag",
+          "x": 636,
+          "y": 240,
+          "w": 516,
+          "h": 1552
+        },
+        {
+          "id": "hair_split",
+          "x": 1140,
+          "y": 240,
+          "w": 600,
+          "h": 1552
+        },
+        {
+          "id": "hair_spiral",
+          "x": 1704,
+          "y": 240,
+          "w": 636,
+          "h": 1552
+        }
       ]
     },
     {
       "path": "/Users/yanai/Downloads/mermaid assets/Gemini_Generated_Image_et018pet018pet01.jpeg",
       "cuts": [
-        { "id": "hair_shortwave", "x": 36,   "y": 180, "w": 444, "h": 1500 },
-        { "id": "hair_epic",      "x": 456,  "y": 90,  "w": 840, "h": 1690 },
-        { "id": "hair_longwave",  "x": 1140, "y": 150, "w": 840, "h": 1640 },
-        { "id": "hair_bob",       "x": 1836, "y": 150, "w": 504, "h": 900 }
+        {
+          "id": "hair_shortwave",
+          "x": 36,
+          "y": 180,
+          "w": 444,
+          "h": 1500,
+          "floor": 42
+        },
+        {
+          "id": "hair_epic",
+          "x": 456,
+          "y": 90,
+          "w": 840,
+          "h": 1690,
+          "floor": 34
+        },
+        {
+          "id": "hair_longwave",
+          "x": 1140,
+          "y": 150,
+          "w": 840,
+          "h": 1640,
+          "floor": 42
+        },
+        {
+          "id": "hair_bob",
+          "x": 1836,
+          "y": 150,
+          "w": 504,
+          "h": 900,
+          "floor": 42
+        }
       ]
     },
     {
       "path": "/Users/yanai/Downloads/mermaid assets/Gemini_Generated_Image_gz6coagz6coagz6c.jpeg",
       "cuts": [
-        { "id": "hair_spring", "x": 48,   "y": 192, "w": 528, "h": 700 },
-        { "id": "hair_summer", "x": 504,  "y": 180, "w": 756, "h": 1570 },
-        { "id": "hair_autumn", "x": 1200, "y": 190, "w": 672, "h": 1500 },
-        { "id": "hair_winter", "x": 1764, "y": 180, "w": 630, "h": 1570 }
+        {
+          "id": "hair_spring",
+          "x": 48,
+          "y": 192,
+          "w": 528,
+          "h": 700,
+          "floor": 42
+        },
+        {
+          "id": "hair_summer",
+          "x": 504,
+          "y": 180,
+          "w": 756,
+          "h": 1570,
+          "floor": 42
+        },
+        {
+          "id": "hair_autumn",
+          "x": 1200,
+          "y": 190,
+          "w": 672,
+          "h": 1500,
+          "floor": 42
+        },
+        {
+          "id": "hair_winter",
+          "x": 1764,
+          "y": 180,
+          "w": 630,
+          "h": 1570,
+          "floor": 42
+        }
+      ]
+    },
+    {
+      "path": "/Users/yanai/Downloads/APC_assets/Clothes/Shirt_2.png",
+      "cuts": [
+        {
+          "id": "top_sweater_raw",
+          "x": 0,
+          "y": 0,
+          "w": 1489,
+          "h": 1273
+        }
       ]
     }
   ]

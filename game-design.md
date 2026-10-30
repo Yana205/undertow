@@ -61,7 +61,7 @@ Every wearable item carries exactly **one visible vibe**, shown as a small icon 
 
 - **Scoring**: count equipped vibes; the **dominant vibe** picks the ending branch.
 - **Tail bias (hidden)**: the chosen tail adds **+1 silent vibe vote** — *Deep Current → Tide, Pale Pearlescent → Masque, Classic Oceanic → Memory, Shallow Reef → wild card (rolled once per night)*. Players discover tribe temperaments on replay.
-- **Tie-break rule** (builder's call): if two vibes tie for dominant, the tail's bias vibe wins when it is one of the tied; otherwise the vibe of the **most recently equipped** item among the tied wins. Deterministic, no UI, and "the last thing she reached for" reads as intent.
+- **Tie-break rule** (builder's call): on a tie for dominant, the vibe of the **most recently equipped** item among the tied wins — the player's visible choices always outrank the hidden bias; the bias decides only when no equipped item is among the tied (e.g. a naked walk-ashore). Deterministic, no UI, and "the last thing she reached for" reads as intent.
 - **The secret ending gate**: Memory dominant **and the locket equipped** → *Found*. Memory dominant without the locket → *Almost* (the cruelest ending — a text/grade variant of the same scene, nearly free to build). The reveal is "accidental" in fiction: a wave catches her at the fire's edge and the locket swings into the light — she never chose to show it; the curse was never *broken*, only slipped.
 - **Why visible icons**: players must read the language they're speaking (vibes shown) while still having things to discover (tail bias, the locket gate).
 
