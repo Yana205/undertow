@@ -3,6 +3,7 @@
 import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js";
 import * as engine from "./engine.js";
 import * as watcher from "./watcher.js";
+import { playChime, playAmbient, playStinger } from "./audio.js";
 import { resolveBias, tally, resolveEnding } from "./vibes.js";
 
 const $ = (sel) => document.querySelector(sel);
@@ -89,7 +90,7 @@ function showTitle() {
     "Tonight there is a bonfire on the beach — and he is there. Dress for the party. " +
     "What she wears writes what the night becomes.");
   const btn = el("button", { className: "primary" }, "Begin");
-  btn.addEventListener("click", showTailSelect, { once: true });
+  btn.addEventListener("click", () => { playAmbient(); showTailSelect(); }, { once: true });
   showOverlay(h1, p, btn);
 }
 
@@ -135,6 +136,7 @@ function walkAshore() {
 
 function showEnding(key, dominant) {
   state = "ENDING";
+  playStinger(key);
   const e = ENDINGS[key];
   const h = el("h1", {}, e.title);
   const parts = [h];
@@ -160,7 +162,10 @@ engine.initStage($("#stage"));
 watcher.initWatcher($("#watcher-wrap"));
 engine.onEquip((item) => {
   const t = renderTally();
-  if (item?.vibe) watcher.react(item.vibe);
+  if (item?.vibe) {
+    watcher.react(item.vibe);
+    playChime(item.vibe);
+  }
   watcher.setTier(t.dominant);
 });
 $("#ashore").addEventListener("click", walkAshore);
