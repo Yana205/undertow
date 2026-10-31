@@ -1,11 +1,11 @@
 // All game content. Array order inside SLOTS is the stage z-order.
 
-export const SLOTS = ["bg", "hair_back", "base", "top", "neck", "hair_front", "head", "held", "fx"];
+export const SLOTS = ["bg", "hair_back", "base", "skirt", "top", "neck", "hair_front", "head", "held", "fx"];
 
 // UI wardrobe tabs (hair items render on the hair_front layer; a matching
 // *_back.png, when it exists, is added on hair_back automatically).
-export const WARDROBE_SLOTS = ["hair", "top", "neck", "head", "held"];
-export const SLOT_LAYER = { hair: "hair_front", top: "top", neck: "neck", head: "head", held: "held" };
+export const WARDROBE_SLOTS = ["hair", "top", "skirt", "neck", "head"];
+export const SLOT_LAYER = { hair: "hair_front", top: "top", skirt: "skirt", neck: "neck", head: "head", held: "held" };
 
 export const TAILS = [
   { id: "oceanic",      bias: "memory", src: "assets/bases/oceanic.png",
@@ -23,26 +23,31 @@ const hair = (id, vibe) => ({
   src: `assets/hair/hair_${id}.png`, thumb: `assets/thumbs/hair_${id}.webp`,
 });
 
+const apc = (id, slot, vibe, extra = {}) => ({
+  id, slot, vibe, src: `assets/items/${id}.png`, thumb: `assets/thumbs/${id}.webp`, ...extra,
+});
+
 export const ITEMS = [
-  // 12 finished hairs (free vibe carriers)
+  // 12 Gemini hairs (hers from the sea)
   hair("fringe", "tide"), hair("shag", "tide"), hair("split", "memory"), hair("spiral", "masque"),
   hair("shortwave", "masque"), hair("epic", "tide"), hair("longwave", "memory"), hair("bob", "masque"),
   hair("spring", "masque"), hair("summer", "memory"), hair("autumn", "tide"), hair("winter", "memory"),
+  // 4 APC hairs (from her human life)
+  apc("hair_apc_black", "hair", "tide"),
+  apc("hair_apc_brunette", "hair", "memory"),
+  apc("hair_apc_blonde", "hair", "masque"),
+  apc("hair_apc_pink", "hair", "masque"),
 
-  // Placeholder wearables until the Gemini batches land (Task 7 swaps srcs)
-  { id: "top_kelp",   slot: "top",  vibe: "tide",   src: "assets/items/top_kelp.png",   thumb: "assets/thumbs/top_kelp.webp" },
-  { id: "top_party",  slot: "top",  vibe: "masque", src: "assets/items/top_party.png",  thumb: "assets/thumbs/top_party.webp" },
-  { id: "top_sweater", slot: "top", vibe: "memory", src: "assets/items/top_sweater.png", thumb: "assets/thumbs/top_sweater.webp" }, // his old sweater
-
-  { id: "neck_fang",  slot: "neck", vibe: "tide",   src: "assets/items/neck_fang.png",  thumb: "assets/thumbs/neck_fang.webp" },
-  { id: "neck_beads", slot: "neck", vibe: "masque", src: "assets/items/neck_beads.png", thumb: "assets/thumbs/neck_beads.webp" },
-  { id: "locket",     slot: "neck", vibe: "memory", src: "assets/items/locket.png",     thumb: "assets/thumbs/locket.webp", hero: true },
-  { id: "head_coral", slot: "head", vibe: "tide",   src: "assets/items/head_coral.png", thumb: "assets/thumbs/head_coral.webp" },
-  { id: "head_mask",  slot: "head", vibe: "masque", src: "assets/items/head_mask.png",  thumb: "assets/thumbs/head_mask.webp" },
-  { id: "head_ribbon",slot: "head", vibe: "memory", src: "assets/items/head_ribbon.png",thumb: "assets/thumbs/head_ribbon.webp" },
-  { id: "held_lantern",  slot: "held", vibe: "tide",   src: "assets/items/held_lantern.png",  thumb: "assets/thumbs/held_lantern.webp" },
-  { id: "held_maskstick",slot: "held", vibe: "masque", src: "assets/items/held_maskstick.png", thumb: "assets/thumbs/held_maskstick.webp" },
-  { id: "held_shell",    slot: "held", vibe: "memory", src: "assets/items/held_shell.png",    thumb: "assets/thumbs/held_shell.webp" },
+  // Her human wardrobe (the APC pack IS the closet she left behind)
+  apc("top_shirt1", "top", "masque"),
+  apc("top_sweater", "top", "memory"),   // his old sweater
+  apc("top_shirt3", "top", "tide"),
+  apc("dress_ruffle", "top", "masque"),  // a dress for a party
+  apc("dress_dark", "top", "tide"),
+  apc("skirt_plaid", "skirt", "memory"), // the skirt she wore back then
+  apc("skirt_soft", "skirt", "masque"),
+  apc("locket", "neck", "memory", { hero: true }), // the one thing the curse let her keep
+  apc("head_bows", "head", "masque"),
 ];
 
 export const VIBE_ICONS = { tide: "🌊", masque: "🎭", memory: "🕯" };

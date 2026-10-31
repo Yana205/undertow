@@ -1,0 +1,15 @@
+[
+  { "id": "top_shirt1",   "file": "Clothes/Shirt_1.png",  "slot": "top",   "anchor": "neck",  "dy": -14 },
+  { "id": "top_sweater",  "file": "Clothes/Shirt_2.png",  "slot": "top",   "anchor": "neck",  "dy": -26 },
+  { "id": "top_shirt3",   "file": "Clothes/Shirt_3.png",  "slot": "top",   "anchor": "neck",  "dy": -14 },
+  { "id": "dress_ruffle", "file": "Clothes/Dress_1.png",  "slot": "top",   "anchor": "neck",  "dy": -10 },
+  { "id": "dress_dark",   "file": "Clothes/Dress_2.png",  "slot": "top",   "anchor": "neck",  "dy": -10 },
+  { "id": "skirt_plaid",  "file": "Clothes/Skirt_1.png",  "slot": "skirt", "anchor": "waist", "dy": -18 },
+  { "id": "skirt_soft",   "file": "Clothes/Skirt_2.png",  "slot": "skirt", "anchor": "waist", "dy": -18 },
+  { "id": "locket",       "file": "Accessories/Acc_1.png","slot": "neck",  "anchor": "neck",  "dy": -6 },
+  { "id": "head_bows",    "file": "Accessories/Acc_3.png","slot": "head",  "anchor": "head_top", "dy": 36 },
+  { "id": "hair_apc_black",    "file": "Body_Base/Base Hair Black.png",    "slot": "hair", "anchor": "head_top", "dy": -16 },
+  { "id": "hair_apc_brunette", "file": "Body_Base/Base Hair Brunette.png", "slot": "hair", "anchor": "head_top", "dy": -16 },
+  { "id": "hair_apc_blonde",   "file": "Body_Base/Base Hair Blonde.png",   "slot": "hair", "anchor": "head_top", "dy": -16 },
+  { "id": "hair_apc_pink",     "file": "Body_Base/Base Hair Pink.png",     "slot": "hair", "anchor": "head_top", "dy": -16 }
+]

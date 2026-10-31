@@ -87,6 +87,8 @@ He stands at the bonfire's edge, nearest the water — he always ends up nearest
 
 ## Characters & Slots (technical design)
 
+> **Update (Oct 31, build day):** the wardrobe pivoted to **pack-only assets** — the APC human closet fitted at creator scale (`tools/apc_fit.py`: one global ratio K measured head-to-head between the APC body and the mermaid bases, which share the same doll; all bases re-aligned to head-center 600/140 so one garment position fits all four). A `skirt` slot replaced `held` (cut-list #3). The locket is the pack's heart-pendant necklace. Gemini item batches are now an optional stretch, not the plan.
+
 Layer stack, bottom → top (every layer a full-canvas PNG at (0,0) — no anchor math):
 
 | z | Slot | Options (core / stretch) | Source |
