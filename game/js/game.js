@@ -1,12 +1,23 @@
 // Game flow: TITLE → TAIL_SELECT → DRESSING → ASHORE → ENDING.
 
-import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js?v=8";
-import * as engine from "./engine.js?v=8";
-import * as watcher from "./watcher.js?v=8";
-import { playChime, playAmbient, playStinger } from "./audio.js?v=8";
-import { startAmbientLife, settle, settleTop, settleHair, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=8";
-import { SLOT_LAYER } from "./data.js?v=8";
-import { resolveBias, tally, resolveEnding } from "./vibes.js?v=8";
+import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, VIBE_ICON_SRC, ENDINGS } from "./data.js?v=9";
+
+// painted vibe emblem with emoji fallback if the sprite is missing
+function vibeIcon(vibe, size) {
+  const img = new Image();
+  img.src = VIBE_ICON_SRC[vibe];
+  img.alt = vibe;
+  img.className = "vibe-icon";
+  img.style.width = img.style.height = `${size}px`;
+  img.onerror = () => img.replaceWith(document.createTextNode(VIBE_ICONS[vibe] ?? ""));
+  return img;
+}
+import * as engine from "./engine.js?v=9";
+import * as watcher from "./watcher.js?v=9";
+import { playChime, playAmbient, playStinger } from "./audio.js?v=9";
+import { startAmbientLife, settle, settleTop, settleHair, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=9";
+import { SLOT_LAYER } from "./data.js?v=9";
+import { resolveBias, tally, resolveEnding } from "./vibes.js?v=9";
 
 const $ = (sel) => document.querySelector(sel);
 const overlay = $("#overlay");
@@ -45,7 +56,7 @@ function buildThumbs() {
     img.onerror = () => { img.remove(); d.append(item.id); };
     const v = document.createElement("span");
     v.className = "vibe";
-    v.textContent = VIBE_ICONS[item.vibe] ?? "";
+    if (item.vibe) v.appendChild(vibeIcon(item.vibe, 20));
     d.append(img, v);
     d.addEventListener("click", () => {
       if (state !== "DRESSING") return;
@@ -70,7 +81,8 @@ function renderTally() {
   const lead = max > 0 ? [...own].reverse().find((v) => counts[v] === max) : null;
   for (const vibe of ["tide", "masque", "memory"]) {
     const s = document.createElement("span");
-    s.textContent = `${VIBE_ICONS[vibe]} ${counts[vibe]}`;
+    s.appendChild(vibeIcon(vibe, 24));
+    s.appendChild(document.createTextNode(` ${counts[vibe]}`));
     if (lead === vibe) s.className = "lead";
     el.appendChild(s);
   }
