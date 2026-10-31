@@ -57,6 +57,6 @@ node --test tests/vibes.test.mjs
 
 By **Yana Ifraimov** — design, art direction, tech art. Built with Claude Code.
 Mermaid bases and backgrounds include AI-generated imagery (Google Gemini),
-human-curated; wardrobe garments adapted from the APC dress-up asset pack.
+human-curated; wardrobe garments adapted from the ["Dress Up Pack" by bellebunnik](https://bellebunnik.itch.io/dress-up-pack).
 Title artwork and lore inspired by the mood of *Vampire Knight* — all
 characters and setting are original. See [game/CREDITS.md](game/CREDITS.md).

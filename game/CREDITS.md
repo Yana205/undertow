@@ -4,10 +4,11 @@ A 24-hour Halloween jam game by **Yana Ifraimov** — design, tech art, directio
 Built with Claude Code (vanilla HTML/JS, no engine).
 
 ## Art
-- Mermaid bases and hair sheets: AI-generated (Google Gemini) by Yana, hand-curated and sliced.
-- "His old sweater": adapted from the APC dress-up asset pack.
-- Background scene: procedurally generated (placeholder pending painted version).
-- Watcher sprites: placeholder silhouettes (pending painted version).
+- Mermaid tail bases, shell-bra top, title artwork: AI-generated (Google Gemini) by Yana, hand-curated.
+- Hairs, heart-pendant locket, hair bows: adapted (with hue variants) from the
+  ["Dress Up Pack" by bellebunnik](https://bellebunnik.itch.io/dress-up-pack).
+- UI buttons and vibe emblems: Yana's sea-gothic UI package, AI-generated, hand-curated.
+- Background: pixel moon sky + bonfire shore, procedurally drawn in-repo; watcher sprite is a placeholder silhouette.
 
 ## Shaders
 - Sea material: ported from "Cartoon Water" by andrewray
