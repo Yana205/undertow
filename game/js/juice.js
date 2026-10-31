@@ -36,7 +36,7 @@ export function stopAmbientLife() {
 }
 
 // Pop the layer an item just landed on, then hand the layer back to its
-// idle animation (hair sway, tail drift) once the pop finishes.
+// idle animation once the pop finishes.
 export function settle(layerImg) {
   if (!layerImg) return;
   layerImg.classList.remove("pop");
@@ -45,6 +45,44 @@ export function settle(layerImg) {
   layerImg.addEventListener(
     "animationend",
     (ev) => { if (ev.animationName === "equip-pop") layerImg.classList.remove("pop"); },
+    { once: true }
+  );
+}
+
+// Tops materialize: left and right halves drift in and meet at the center.
+export function settleTop(layerImg) {
+  if (!layerImg) return;
+  const parent = layerImg.parentElement;
+  layerImg.style.visibility = "hidden";
+  const halves = ["L", "R"].map((side) => {
+    const c = layerImg.cloneNode();
+    c.style.visibility = "visible";
+    c.style.clipPath = side === "L" ? "inset(0 50% 0 0)" : "inset(0 0 0 50%)";
+    parent.appendChild(c);
+    c.animate(
+      [
+        { transform: `translateX(${side === "L" ? -46 : 46}px)`, opacity: 0, filter: "brightness(1.7)" },
+        { transform: "translateX(0)", opacity: 1, filter: "brightness(1)" },
+      ],
+      { duration: 540, easing: "cubic-bezier(0.25, 0.9, 0.3, 1)", fill: "forwards" }
+    );
+    return c;
+  });
+  setTimeout(() => {
+    layerImg.style.visibility = "";
+    halves.forEach((c) => c.remove());
+  }, 620);
+}
+
+// Hair flows into being from the crown down, with a soft sway as it lands.
+export function settleHair(layerImg) {
+  if (!layerImg) return;
+  layerImg.classList.remove("pop", "pop-hair");
+  void layerImg.offsetWidth;
+  layerImg.classList.add("pop-hair");
+  layerImg.addEventListener(
+    "animationend",
+    (ev) => { if (ev.animationName === "equip-hair") layerImg.classList.remove("pop-hair"); },
     { once: true }
   );
 }

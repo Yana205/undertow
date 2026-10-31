@@ -79,6 +79,18 @@ body {
   100% { transform: none; }
 }
 
+/* hair is created flowing: revealed from the crown down, swaying as it lands */
+.layer.pop-hair {
+  animation: equip-hair 0.95s cubic-bezier(0.3, 0.8, 0.3, 1);
+  transform-origin: 50% 10%;
+}
+@keyframes equip-hair {
+  0%   { clip-path: inset(0 0 100% 0); opacity: 0; transform: rotate(-2.2deg); }
+  55%  { clip-path: inset(0 0 0% 0);  opacity: 1; transform: rotate(1.4deg); }
+  78%  { transform: rotate(-0.7deg); }
+  100% { clip-path: inset(0 0 0% 0);  transform: none; }
+}
+
 /* ---- juice: idle life ---- */
 /* the doll moves as ONE object — hair and clothes stick to the body */
 #doll {

@@ -1,12 +1,12 @@
 // Game flow: TITLE → TAIL_SELECT → DRESSING → ASHORE → ENDING.
 
-import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js?v=7";
-import * as engine from "./engine.js?v=7";
-import * as watcher from "./watcher.js?v=7";
-import { playChime, playAmbient, playStinger } from "./audio.js?v=7";
-import { startAmbientLife, settle, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=7";
-import { SLOT_LAYER } from "./data.js?v=7";
-import { resolveBias, tally, resolveEnding } from "./vibes.js?v=7";
+import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js?v=8";
+import * as engine from "./engine.js?v=8";
+import * as watcher from "./watcher.js?v=8";
+import { playChime, playAmbient, playStinger } from "./audio.js?v=8";
+import { startAmbientLife, settle, settleTop, settleHair, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=8";
+import { SLOT_LAYER } from "./data.js?v=8";
+import { resolveBias, tally, resolveEnding } from "./vibes.js?v=8";
 
 const $ = (sel) => document.querySelector(sel);
 const overlay = $("#overlay");
@@ -178,7 +178,10 @@ watcher.initWatcher($("#watcher-wrap"));
 engine.onEquip((item, slot) => {
   const t = renderTally();
   if (item) {
-    settle(document.querySelector(`.layer-${SLOT_LAYER[slot]}`));
+    const layerEl = document.querySelector(`.layer-${SLOT_LAYER[slot]}`);
+    if (slot === "top") settleTop(layerEl);
+    else if (slot === "hair") settleHair(layerEl);
+    else settle(layerEl);
     if (item.vibe) {
       watcher.react(item.vibe);
       playChime(item.vibe);
