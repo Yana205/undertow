@@ -28,10 +28,11 @@ const stage = (layers, label) => {
   const c = document.createElement("figcaption"); c.textContent = label;
   f.append(s, c); return f;
 };
+const v = "?v=" + Date.now();
 for (const b of BASES)
-  document.getElementById("bases").append(stage([`bases/${b}.png`, "hair/hair_fringe.png"], b));
+  document.getElementById("bases").append(stage([`hair/hair_fringe_back.png${v}`, `bases/${b}.png${v}`, `hair/hair_fringe.png${v}`], b));
 for (const h of HAIRS)
-  document.getElementById("hairs").append(stage(["bases/deep_current.png", `hair/hair_${h}.png`], h));
+  document.getElementById("hairs").append(stage([`hair/hair_${h}_back.png${v}`, `bases/oceanic.png${v}`, `hair/hair_${h}.png${v}`], h));
 for (const b of BASES)
-  document.getElementById("fit").append(stage([`bases/${b}.png`, "items/_testwrap.png"], b + " + wrap"));
+  document.getElementById("fit").append(stage([`bases/${b}.png${v}`, `items/dress_ruffle.png${v}`], b + " + dress"));
 </script>

@@ -10,15 +10,16 @@ let equipCb = null;
 
 export function initStage(el) {
   el.replaceChildren();
-  for (const name of SLOTS) {
+  SLOTS.forEach((name, i) => {
     const img = document.createElement("img");
     img.className = `layer layer-${name}`;
     img.alt = "";
     img.draggable = false;
     img.hidden = true;
+    img.style.zIndex = String(i + 1); // explicit paint order; never rely on DOM-order stacking
     el.appendChild(img);
     layers[name] = img;
-  }
+  });
 }
 
 function setLayer(name, src) {

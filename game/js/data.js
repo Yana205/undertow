@@ -19,7 +19,7 @@ export const TAILS = [
 ];
 
 const hair = (id, vibe) => ({
-  id: `hair_${id}`, slot: "hair", vibe,
+  id: `hair_${id}`, slot: "hair", vibe, hasBack: true, // full mass behind the base, cap in front
   src: `assets/hair/hair_${id}.png`, thumb: `assets/thumbs/hair_${id}.webp`,
 });
 
