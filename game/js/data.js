@@ -33,11 +33,12 @@ export const ITEMS = [
   apc("hair_apc_lavender", "hair", "memory"),
   apc("hair_apc_crimson", "hair", "masque"),
 
-  // Her human wardrobe (the APC pack IS the closet she left behind)
-  apc("top_shirt1", "top", "masque"),
-  apc("top_sweater", "top", "memory"),   // his old sweater
-  apc("top_shirt3", "top", "tide"),
-  apc("dress_ruffle", "top", "masque"),  // a dress for a party
+  // Sea finery (Gemini) and her human closet (APC pack)
+  apc("top_shell", "top", "tide"),         // dark shell bra — her sea self
+  apc("top_shell_pearl", "top", "masque"),
+  apc("top_shell_rose", "top", "masque"),
+  apc("top_shell_gold", "top", "memory"),
+  apc("dress_ruffle", "top", "masque"),    // a dress for a party
   apc("dress_dark", "top", "tide"),
   apc("locket", "neck", "memory", { hero: true }), // the one thing the curse let her keep
   apc("head_bows", "head", "masque"),

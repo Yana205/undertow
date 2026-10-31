@@ -43,13 +43,17 @@ def head_metrics(mask):
     w, cx, _ = max(widths)
     return {"head_top": int(top), "head_w": int(w), "head_cx": float(cx), "H": int(H)}
 
+TARGET_HEAD = 130  # canvas head width every base is normalized to
+
 def align():
     layout = json.load(open(ROOT / "tools" / "layout.json"))
     for bid in ["base_oceanic", "base_pearlescent", "base_deep_current", "base_reef"]:
         m = head_metrics(mask_of(Image.open(RAW / f"{bid}.png")))
-        layout[bid]["x"] = round(CX - BASE_S * m["head_cx"])
-        layout[bid]["y"] = round(HEAD_TOP - BASE_S * m["head_top"])
-        print(bid, m, "->", layout[bid]["x"], layout[bid]["y"])
+        s = TARGET_HEAD / m["head_w"]          # same head size on all four bodies
+        layout[bid]["scale"] = round(s, 4)
+        layout[bid]["x"] = round(CX - s * m["head_cx"])
+        layout[bid]["y"] = round(HEAD_TOP - s * m["head_top"])
+        print(bid, m, "-> scale", layout[bid]["scale"], layout[bid]["x"], layout[bid]["y"])
     json.dump(layout, open(ROOT / "tools" / "layout.json", "w"), indent=2)
 
 def anatomy():
@@ -57,8 +61,9 @@ def anatomy():
     rows = np.nonzero(mask.any(axis=1))[0]
     top, H = rows[0], rows[-1] - rows[0]
     m = head_metrics(mask)
-    y0 = HEAD_TOP - BASE_S * m["head_top"]
-    def canvas_y(raw_y): return round(y0 + BASE_S * raw_y)
+    s = TARGET_HEAD / m["head_w"]
+    y0 = HEAD_TOP - s * m["head_top"]
+    def canvas_y(raw_y): return round(y0 + s * raw_y)
     prof = []
     for y in range(top, top + int(H * 0.45), 4):
         xs = np.nonzero(mask[y])[0]
@@ -91,7 +96,14 @@ def items():
         p = ROOT / it["file"]
         src = Image.open(p if p.exists() else APC / it["file"]).convert("RGBA")
         a = np.array(src)
-        if a[:, :, 3].min() == 255:          # no transparency: cut it
+        if it.get("key") == "black":
+            # dark garment on a black backdrop: luminance key with a soft ramp
+            # (rembg erases these — too little contrast)
+            lum = a[:, :, :3].max(axis=2).astype(float)
+            lo, hi = it.get("key_lo", 16), it.get("key_hi", 42)
+            a[:, :, 3] = (np.clip((lum - lo) / (hi - lo), 0, 1) * 255).astype(np.uint8)
+            src = Image.fromarray(a)
+        elif a[:, :, 3].min() == 255:        # no transparency: cut it
             if session:
                 from rembg import remove
                 src = remove(src, session=session)

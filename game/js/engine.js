@@ -1,7 +1,7 @@
 // Layer engine: a fixed stack of <img> layers driven by data.js.
 // No anchor math — every asset is a full-canvas 1200x1800 PNG.
 
-import { SLOTS, SLOT_LAYER, ITEMS } from "./data.js";
+import { SLOTS, SLOT_LAYER, ITEMS } from "./data.js?v=6";
 
 const layers = {};      // layer name -> <img>
 const equipped = {};    // wardrobe slot -> item
@@ -10,6 +10,11 @@ let equipCb = null;
 
 export function initStage(el) {
   el.replaceChildren();
+  // bg and fx live on the stage; everything body-related lives inside the
+  // #doll wrapper, which carries the one idle animation — hair, clothes and
+  // body move as a single object and can never slide against each other.
+  const doll = document.createElement("div");
+  doll.id = "doll";
   SLOTS.forEach((name, i) => {
     const img = document.createElement("img");
     img.className = `layer layer-${name}`;
@@ -17,9 +22,10 @@ export function initStage(el) {
     img.draggable = false;
     img.hidden = true;
     img.style.zIndex = String(i + 1); // explicit paint order; never rely on DOM-order stacking
-    el.appendChild(img);
+    (name === "bg" || name === "fx" ? el : doll).appendChild(img);
     layers[name] = img;
   });
+  el.appendChild(doll);
 }
 
 function setLayer(name, src) {

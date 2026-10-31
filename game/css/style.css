@@ -80,16 +80,17 @@ body {
 }
 
 /* ---- juice: idle life ---- */
-.layer-hair_front { animation: hair-sway 5.2s ease-in-out infinite; transform-origin: 50% 9%; }
-.layer-hair_back { animation: hair-sway 6.1s ease-in-out infinite reverse; transform-origin: 50% 9%; }
-@keyframes hair-sway {
-  0%, 100% { transform: rotate(0.001deg); }
-  50% { transform: rotate(0.55deg) translateY(2px); }
+/* the doll moves as ONE object — hair and clothes stick to the body */
+#doll {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  animation: tail-drift 7s ease-in-out infinite;
+  transform-origin: 50% 30%;
 }
-.layer-base { animation: tail-drift 7s ease-in-out infinite; transform-origin: 50% 30%; }
 @keyframes tail-drift {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px) rotate(0.12deg); }
+  50% { transform: translateY(5px) rotate(0.1deg); }
 }
 
 /* bubbles */
@@ -236,10 +237,10 @@ body {
 
 #thumbs {
   flex: 1;
-  overflow-y: auto;
+  overflow: hidden; /* the collection fits — no scroller */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
   align-content: start;
 }
 .thumb {

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "top_shell",
+    "file": "assets_incoming/top_shellbra_src.jpg",
+    "slot": "top",
+    "anchor": "neck",
+    "dy": -4,
+    "fitwidth": 215,
+    "key": "black"
+  }
+]

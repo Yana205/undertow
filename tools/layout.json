@@ -1,26 +1,26 @@
 {
   "base_oceanic": {
-    "scale": 0.9,
-    "x": 264,
+    "scale": 0.8966,
+    "x": 265,
     "y": 120,
     "dest": "game/assets/bases/oceanic.png"
   },
   "base_pearlescent": {
-    "scale": 0.9,
-    "x": 278,
-    "y": 79,
+    "scale": 0.9559,
+    "x": 258,
+    "y": 75,
     "dest": "game/assets/bases/pearlescent.png"
   },
   "base_deep_current": {
-    "scale": 0.9,
-    "x": 348,
-    "y": 80,
+    "scale": 0.9489,
+    "x": 335,
+    "y": 76,
     "dest": "game/assets/bases/deep_current.png"
   },
   "base_reef": {
-    "scale": 0.9,
-    "x": 348,
-    "y": 42,
+    "scale": 0.9848,
+    "x": 324,
+    "y": 33,
     "dest": "game/assets/bases/reef.png"
   },
   "hair_fringe": {

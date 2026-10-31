@@ -1,12 +1,12 @@
 // Game flow: TITLE → TAIL_SELECT → DRESSING → ASHORE → ENDING.
 
-import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js";
-import * as engine from "./engine.js";
-import * as watcher from "./watcher.js";
-import { playChime, playAmbient, playStinger } from "./audio.js";
-import { startAmbientLife, settle, ENDING_GRADE, ENDING_POSE } from "./juice.js";
-import { SLOT_LAYER } from "./data.js";
-import { resolveBias, tally, resolveEnding } from "./vibes.js";
+import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js?v=6";
+import * as engine from "./engine.js?v=6";
+import * as watcher from "./watcher.js?v=6";
+import { playChime, playAmbient, playStinger } from "./audio.js?v=6";
+import { startAmbientLife, settle, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=6";
+import { SLOT_LAYER } from "./data.js?v=6";
+import { resolveBias, tally, resolveEnding } from "./vibes.js?v=6";
 
 const $ = (sel) => document.querySelector(sel);
 const overlay = $("#overlay");
