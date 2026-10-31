@@ -18,7 +18,7 @@
 <div class="row" id="fit"></div>
 <script>
 const BASES = ["oceanic","pearlescent","deep_current","reef"];
-const HAIRS = ["fringe","shag","split","spiral","shortwave","epic","longwave","bob","spring","summer","autumn","winter"];
+const HAIRS = ["apc_black","apc_brunette","apc_blonde","apc_pink","apc_teal","apc_lavender","apc_silver","apc_crimson"];
 const stage = (layers, label) => {
   const f = document.createElement("figure");
   const s = document.createElement("div"); s.className = "stage";
@@ -30,9 +30,9 @@ const stage = (layers, label) => {
 };
 const v = "?v=" + Date.now();
 for (const b of BASES)
-  document.getElementById("bases").append(stage([`hair/hair_fringe_back.png${v}`, `bases/${b}.png${v}`, `hair/hair_fringe.png${v}`], b));
+  document.getElementById("bases").append(stage([`bases/${b}.png${v}`, `items/hair_apc_black.png${v}`], b));
 for (const h of HAIRS)
-  document.getElementById("hairs").append(stage([`hair/hair_${h}_back.png${v}`, `bases/oceanic.png${v}`, `hair/hair_${h}.png${v}`], h));
+  document.getElementById("hairs").append(stage([`bases/oceanic.png${v}`, `items/hair_${h}.png${v}`], h));
 for (const b of BASES)
   document.getElementById("fit").append(stage([`bases/${b}.png${v}`, `items/dress_ruffle.png${v}`], b + " + dress"));
 </script>

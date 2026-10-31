@@ -80,13 +80,16 @@ def items():
     except Exception:
         session = None
     spec = json.load(open(ROOT / "tools" / "apc_items.json"))
+    if (ROOT / "tools" / "incoming_items.json").exists():
+        spec = spec + json.load(open(ROOT / "tools" / "incoming_items.json"))
     anat = anatomy()
     outdir = ROOT / "game" / "assets" / "items"
     thumbs = ROOT / "game" / "assets" / "thumbs"
     outdir.mkdir(parents=True, exist_ok=True)
     thumbs.mkdir(parents=True, exist_ok=True)
     for it in spec:
-        src = Image.open(APC / it["file"]).convert("RGBA")
+        p = ROOT / it["file"]
+        src = Image.open(p if p.exists() else APC / it["file"]).convert("RGBA")
         a = np.array(src)
         if a[:, :, 3].min() == 255:          # no transparency: cut it
             if session:
@@ -98,7 +101,12 @@ def items():
                 src = Image.fromarray(a)
         bbox = src.getbbox()
         src = src.crop(bbox)
-        s = it.get("scale", 1.0) * K
+        if it.get("fitwidth"):
+            # scale any standalone garment to a target canvas width —
+            # generated tops fit regardless of their export resolution
+            s = it["fitwidth"] / src.width
+        else:
+            s = it.get("scale", 1.0) * K
         im = src.resize((max(1, round(src.width * s)), max(1, round(src.height * s))), Image.LANCZOS)
         ax = anat["cx"] + it.get("dx", 0) - im.width // 2
         ay = anat[it["anchor"]] + it.get("dy", 0)
