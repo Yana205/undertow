@@ -59,6 +59,7 @@ body {
   inset: 0;
   border-radius: 10px;
   overflow: hidden;
+  isolation: isolate; /* contain layer z-indexes — they must never beat the overlay */
   background: linear-gradient(#0e1b2b 0%, #0a2033 34%, #06141f 35%, #041019 100%);
 }
 #stage .layer {
@@ -287,6 +288,7 @@ body {
 #overlay {
   position: fixed;
   inset: 0;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -296,6 +298,14 @@ body {
   text-align: center;
   padding: 24px;
 }
+#overlay.title {
+  background:
+    linear-gradient(#0d101744 30%, #0d1017cc 72%, #0d1017f2 100%),
+    url("../assets/bg/title.jpg") center 18% / cover no-repeat #0d1017;
+  justify-content: flex-end;
+  padding-bottom: 7vh;
+}
+#overlay.title h1 { font-size: 56px; }
 #overlay[hidden] { display: none; }
 #overlay h1 {
   font-family: var(--display);

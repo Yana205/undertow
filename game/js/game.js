@@ -80,6 +80,7 @@ function renderTally() {
 // ---- overlay screens ----
 function showOverlay(...children) {
   overlay.replaceChildren(...children);
+  overlay.classList.toggle("title", state === "TITLE");
   overlay.hidden = false;
 }
 
