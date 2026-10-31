@@ -257,10 +257,12 @@ body {
   flex: none; /* no stretching — the grid is exactly its rows */
   overflow: hidden; /* the collection fits — no scroller */
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* minmax(0,1fr): tracks may shrink below the images' intrinsic width */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 6px;
   align-content: start;
 }
+.thumb { min-width: 0; }
 .thumb {
   position: relative;
   aspect-ratio: 1;
