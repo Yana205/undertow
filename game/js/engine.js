@@ -1,7 +1,7 @@
 // Layer engine: a fixed stack of <img> layers driven by data.js.
 // No anchor math — every asset is a full-canvas 1200x1800 PNG.
 
-import { SLOTS, SLOT_LAYER, ITEMS } from "./data.js?v=10";
+import { SLOTS, SLOT_LAYER, ITEMS } from "./data.js?v=11";
 
 const layers = {};      // layer name -> <img>
 const equipped = {};    // wardrobe slot -> item

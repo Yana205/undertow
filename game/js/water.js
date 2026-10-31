@@ -29,45 +29,47 @@ uniform vec2 specularSpeed;
 varying vec2 vUv;
 
 void main() {
+    // shore-sea look: the beach lies at the TOP of this region (vUv.y = 1),
+    // waves roll toward it, foam breaks along the waterline.
+    vec2 uv = vUv;
+    float toViewer = 1.0 - uv.y;                 // 0 at the shoreline, 1 near the viewer
+    float py = pow(toViewer, 0.8);               // soft perspective on the bands
+
     vec4 disp = texture2D(
         displacement,
-        vUv * waterDisplacementScale + time * displacementSpeed
+        vec2(uv.x * 1.6, py * waterDisplacementScale.y) + time * displacementSpeed
     );
-    vec4 water = mix(
-        texture2D(
-            waterImage,
-            (vUv * waterScale + (length(disp) / 1.73) * displacementHeight) + time * waterSpeed
-        ),
-        vec4(waterColor, 1.0),
-        waterAmt
-    );
+    float d = (length(disp.rgb) / 1.73 - 0.5) * displacementHeight * 7.0;
 
-    vec4 specularBase = (
-        texture2D(specularMap, vUv * specularScale + time * specularSpeed) *
-        texture2D(specularMap, vUv * specularScale - time * specularSpeed)
-    );
+    // rolling swell bands moving toward the shore
+    float band = sin(py * 24.0 - time * 1.05 + d * 5.0);
+    float crest = smoothstep(0.72, 0.96, band);
 
-    vec4 specular = specularBase;
-    float len = length(specularBase.rgb);
-    if (len > specularMax && len < specularPop) {
-        specular *= 0.0;
-    }
+    // sparkle (Cartoon Water's doubled specular), kept on the crests
+    vec4 specularBase =
+        texture2D(specularMap, uv * specularScale + time * specularSpeed) *
+        texture2D(specularMap, uv * specularScale - time * specularSpeed);
+    float sparkle = length(specularBase.rgb) * specularBrightness;
 
-    float specularNoiseDarken = (length(
-        texture2D(specularMap, vUv * 0.25 - time * specularSpeed * 0.5).rgb
-    ) / 1.73) * 3.0 - 1.0;
-    specularNoiseDarken = clamp(specularNoiseDarken, 0.0, 1.0);
+    vec3 col = waterColor;                                      // deep night sea
+    col += vec3(0.014, 0.032, 0.045) * (0.5 + 0.5 * band);      // band shading
+    col += vec3(0.07, 0.10, 0.12) * crest * (0.30 + sparkle);   // lit crests
 
-    specular *= specularBrightness;
+    // breaking foam along the waterline + a trailing foam line
+    float foamNoise = texture2D(specularMap, vec2(uv.x * 5.0, uv.y * 24.0 - time * 0.30)).r;
+    float foamZone = smoothstep(0.88, 1.0, uv.y + d * 0.06);
+    float foam = foamZone * smoothstep(0.38, 0.75, foamNoise + 0.25 * sin(uv.x * 42.0 + time * 1.6));
+    float line2 = exp(-pow((uv.y - (0.82 + 0.025 * sin(uv.x * 8.0 + time * 0.7))) * 55.0, 2.0))
+                  * smoothstep(0.35, 0.7, foamNoise);
+    col = mix(col, vec3(0.72, 0.79, 0.86), clamp(foam + line2 * 0.6, 0.0, 0.8));
 
-    vec3 col = water.rgb + specular.rgb * specularNoiseDarken;
+    // night grading: darker toward the viewer, pale band at the shoreline
+    col *= mix(1.05, 0.42, pow(toViewer, 1.25));
+    col += vec3(0.04, 0.06, 0.08) * exp(-toViewer * 10.0);
 
-    // night-scene integration: darker with depth, moonlight shaft, horizon mist
-    float depth = 1.0 - vUv.y;                 // 0 at horizon, 1 at bottom
-    col *= mix(1.1, 0.35, depth);
-    float shaft = exp(-pow((vUv.x - 0.787) * 7.0, 2.0));
-    col += vec3(0.10, 0.14, 0.17) * shaft * (specular.r * 2.0 + 0.25) * (1.0 - depth * 0.6);
-    col += vec3(0.05, 0.08, 0.11) * exp(-depth * 9.0); // pale band at the horizon
+    // moonlight shaft under the moon
+    float shaft = exp(-pow((uv.x - 0.787) * 7.0, 2.0));
+    col += vec3(0.09, 0.12, 0.15) * shaft * (sparkle * 1.6 + 0.22) * (1.0 - toViewer * 0.55);
 
     gl_FragColor = vec4(col, 1.0);
 }
@@ -89,7 +91,7 @@ const UNIFORMS = {
   waterAmt: 0.72,
   displacementSpeed: [0.012, 0.018],
   waterDisplacementScale: [2.0, 2.0],
-  displacementHeight: 0.18,
+  displacementHeight: 0.09,
   specularScale: 3.0,
   specularBrightness: 0.55,
   specularPop: 1.05,
