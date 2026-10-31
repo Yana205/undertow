@@ -1,6 +1,6 @@
 // Game flow: TITLE → TAIL_SELECT → DRESSING → ASHORE → ENDING.
 
-import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, VIBE_ICON_SRC, ENDINGS } from "./data.js?v=9";
+import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, VIBE_ICON_SRC, ENDINGS } from "./data.js?v=10";
 
 // painted vibe emblem with emoji fallback if the sprite is missing
 function vibeIcon(vibe, size) {
@@ -12,12 +12,13 @@ function vibeIcon(vibe, size) {
   img.onerror = () => img.replaceWith(document.createTextNode(VIBE_ICONS[vibe] ?? ""));
   return img;
 }
-import * as engine from "./engine.js?v=9";
-import * as watcher from "./watcher.js?v=9";
-import { playChime, playAmbient, playStinger } from "./audio.js?v=9";
-import { startAmbientLife, settle, settleTop, settleHair, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=9";
-import { SLOT_LAYER } from "./data.js?v=9";
-import { resolveBias, tally, resolveEnding } from "./vibes.js?v=9";
+import * as engine from "./engine.js?v=10";
+import * as watcher from "./watcher.js?v=10";
+import { playChime, playAmbient, playStinger } from "./audio.js?v=10";
+import { startAmbientLife, settle, settleTop, settleHair, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=10";
+import { SLOT_LAYER } from "./data.js?v=10";
+import { resolveBias, tally, resolveEnding } from "./vibes.js?v=10";
+import { initWater } from "./water.js?v=10";
 
 const $ = (sel) => document.querySelector(sel);
 const overlay = $("#overlay");
@@ -185,6 +186,7 @@ function resetGame() {
 
 // ---- boot ----
 engine.initStage($("#stage"));
+initWater($("#stage"));
 engine.setBackground("assets/bg/shore.png");
 watcher.initWatcher($("#watcher-wrap"));
 engine.onEquip((item, slot) => {
