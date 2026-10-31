@@ -19,4 +19,4 @@ Built with Claude Code (vanilla HTML/JS, no engine).
 
 ## Disclosure
 This game contains AI-generated image assets (Google Gemini), human-curated.
-Mark "contains AI-generated content: Yes" on the itch.io page.
+
