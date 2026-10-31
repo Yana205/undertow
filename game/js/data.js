@@ -38,13 +38,17 @@ export const ITEMS = [
   apc("top_shell_pearl", "top", "masque"),
   apc("top_shell_rose", "top", "masque"),
   apc("top_shell_gold", "top", "memory"),
-  apc("dress_ruffle", "top", "masque"),    // a dress for a party
-  apc("dress_dark", "top", "tide"),
   apc("locket", "neck", "memory", { hero: true }), // the one thing the curse let her keep
   apc("head_bows", "head", "masque"),
 ];
 
-export const VIBE_ICONS = { tide: "🌊", masque: "🎭", memory: "🕯" };
+export const VIBE_ICONS = { tide: "🌊", masque: "🎭", memory: "🕯" }; // fallback glyphs
+// painted vibe icons from the UI package (used when the files exist)
+export const VIBE_ICON_SRC = {
+  tide: "assets/ui/vibe_tide.png",
+  masque: "assets/ui/vibe_masque.png",
+  memory: "assets/ui/vibe_memory.png",
+};
 
 export const ENDINGS = {
   sea_rises: {

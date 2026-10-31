@@ -1,12 +1,12 @@
 // Game flow: TITLE → TAIL_SELECT → DRESSING → ASHORE → ENDING.
 
-import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js?v=6";
-import * as engine from "./engine.js?v=6";
-import * as watcher from "./watcher.js?v=6";
-import { playChime, playAmbient, playStinger } from "./audio.js?v=6";
-import { startAmbientLife, settle, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=6";
-import { SLOT_LAYER } from "./data.js?v=6";
-import { resolveBias, tally, resolveEnding } from "./vibes.js?v=6";
+import { ITEMS, TAILS, WARDROBE_SLOTS, VIBE_ICONS, ENDINGS } from "./data.js?v=7";
+import * as engine from "./engine.js?v=7";
+import * as watcher from "./watcher.js?v=7";
+import { playChime, playAmbient, playStinger } from "./audio.js?v=7";
+import { startAmbientLife, settle, ENDING_GRADE, ENDING_POSE } from "./juice.js?v=7";
+import { SLOT_LAYER } from "./data.js?v=7";
+import { resolveBias, tally, resolveEnding } from "./vibes.js?v=7";
 
 const $ = (sel) => document.querySelector(sel);
 const overlay = $("#overlay");
@@ -123,7 +123,7 @@ function startDressing(tail) {
   engine.resetEquips();
   watcher.resetWatcher();
   engine.setBase(tail);
-  $("#stage").style.filter = tail.palette.grade;
+  // no runtime color grading while dressing — assets render exactly as authored
   overlay.hidden = true;
   $("#wardrobe").hidden = false;
   $("#ashore").hidden = false;
@@ -142,7 +142,7 @@ function walkAshore() {
   // the reveal: push in to the shore, grade the night, let him turn
   $("#wardrobe").hidden = true;
   $("#stage-wrap").classList.add("reveal");
-  $("#stage").style.filter = `${currentTail.palette.grade} ${ENDING_GRADE[key]}`;
+  $("#stage").style.filter = ENDING_GRADE[key]; // cinematic grade only at the ending
   watcher.setTier(ENDING_POSE[key]);
   setTimeout(() => showEnding(key, t.dominant), 1900);
 }

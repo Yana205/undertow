@@ -4,7 +4,7 @@
     "file": "assets_incoming/top_shellbra_src.jpg",
     "slot": "top",
     "anchor": "neck",
-    "dy": -4,
+    "dy": 46,
     "fitwidth": 215,
     "key": "black"
   }

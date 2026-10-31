@@ -219,6 +219,9 @@ body {
   border-radius: 10px;
   padding: 10px;
   gap: 10px;
+  align-self: flex-start;  /* shrink-wrap: the panel is as tall as its content */
+  height: auto;
+  max-height: 100%;
 }
 #slot-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
 #slot-tabs button {
@@ -236,7 +239,7 @@ body {
 #slot-tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--sel); }
 
 #thumbs {
-  flex: 1;
+  flex: none; /* no stretching — the grid is exactly its rows */
   overflow: hidden; /* the collection fits — no scroller */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
